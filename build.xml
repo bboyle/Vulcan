@@ -1,4 +1,4 @@
-<project name="forces.forms.validation" default="help" basedir="."
+<project name="vulcan" default="help" basedir="."
 	 xmlns:ivy="antlib:org.apache.ivy.ant"
 	 xmlns:jsl="antlib:com.googlecode.jslint4java">
 
