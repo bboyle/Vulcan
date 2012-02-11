@@ -93,9 +93,9 @@ Media information and asset sources
 -----------------------------------
 
 * Movie data
-** IMDb
-** Wikipedia
+  * IMDb
+  * Wikipedia
 * OFLC markings
-** http://www.classification.gov.au/www/cob/classification.nsf/Page/ClassificationMarkings_ClassificationMarkingsDownload_ClassificationMarkingsDownloads-InternetAdvertising
+  * http://www.classification.gov.au/www/cob/classification.nsf/Page/ClassificationMarkings_ClassificationMarkingsDownload_ClassificationMarkingsDownloads-InternetAdvertising
 * Movie posters
-** http://www.impawards.com
+  * http://www.impawards.com
