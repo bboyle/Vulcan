@@ -5,7 +5,7 @@ _Vulcan_ is short for VLC + node.
 
 I want the awesome media playback that is [VLC][vlc].
 I want a custom built media centre interface.
-I’ve decided to build that UI as a web app, backed by [node.js][node]
+I’ve decided to build that UI as a web app using [node.js][node]
 
 
 [vlc]: http://www.videolan.org/vlc/ "VideoLAN Player"
@@ -26,7 +26,7 @@ It’s a [MythTV][mythtv] front-end (the backend runs on a separate [mythbuntu][
 That’s working fine.
 
 The DVD player is shot though, so we need to play the backups.
-I usually keep backs as iso files or Video_ts folders.
+I usually keep backups as iso files or Video_ts folders.
 
 Kids TV shows I backup (from DVD) into video which I catalog in iTunes.
 
@@ -79,9 +79,15 @@ Reference
 ---------
 
 * [VLC command line interface][vlc-cli]
+* [node][node-docs]
+* [express][expressjs-guide] like Sinatra, for node
+* [embeddedjs][ejs] closer to HTML than [jade][jade] (which is like haml), suits my skills
 
 [vlc-cli]: http://wiki.videolan.org/VLC_command-line_help "VLC command-line help"
-
+[node-docs]: http://nodejs.org/docs/latest/api/index.html "Node API and documentation"
+[expressjs-guide]: http://expressjs.com/guide.html "express (web framework)"
+[ejs]: http://embeddedjs.com/ "embeddedjs (templates)"
+[jade]: http://jade-lang.com/ "jade (templates)"
 
 Media information and asset sources
 -----------------------------------
