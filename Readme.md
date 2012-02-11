@@ -60,19 +60,19 @@ The plan
 --------
 
 * Design front-end in HTML, JS, SVG and JPG (for poster art?)
-** Organise movies, TV shows, seasons and episodes nicely
-** Import metadata from iTunes where it exists (maybe other apps too? plex? miro?)
-** Scrape metadata or integrate with a scraper (might hardcode my library initially)
-** Include OFLC ratings and basic parental restrictions
-** Fullscreen browser UI: Chrome, Safari (maybe Firefox)
-** play with schema.org markup for movie data
+  * Organise movies, TV shows, seasons and episodes nicely
+  * Import metadata from iTunes where it exists (maybe other apps too? plex? miro?)
+  * Scrape metadata or integrate with a scraper (might hardcode my library initially)
+  * Include OFLC ratings and basic parental restrictions
+  * Fullscreen browser UI: Chrome, Safari (maybe Firefox)
+  * play with schema.org markup for movie data
 * Figure out the HTTP API for vulcan
 * Integrate with VLC
-** Command line (VLC does not have to be running in background, can be launched by node)
-** Play movies in the browser? (`<video>` support?)
+  * Command line (VLC does not have to be running in background, can be launched by node)
+  * Play movies in the browser? (`<video>` support?)
 * Remote control / second screen
-** Being a web app, it should support remote controls from iPhone/iPad etc
-** Link/integrate information and social services on IMDb, TVDB, wikipedia, Miso, etc.
+  * Being a web app, it should support remote controls from iPhone/iPad etc
+  * Link/integrate information and social services on IMDb, TVDB, wikipedia, Miso, etc.
 
 
 Reference
