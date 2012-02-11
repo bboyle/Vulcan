@@ -6,11 +6,12 @@
 
 	<!-- set global properties for this build -->
 	<property name="source.dir" location="src"/>
-	<property name="build.dir" location="build"/>
+	<!-- <property name="build.dir" location="build"/> -->
 	<property name="log.dir" location="logs"/>
-	<property name="lib.dir" location="lib"/>
 
 	<tstamp/>
+
+	<import file="ant/build-lib.xml"/>
 
 
 	<target name="help" description="command line help">
@@ -18,53 +19,27 @@
 	</target>
 
 
-	<path id="ant.tasks.classpath">
-		<fileset dir="lib" includes="*.jar" />
-	</path>
-
-	<taskdef uri="antlib:com.googlecode.jslint4java"
-		 resource="com/googlecode/jslint4java/antlib.xml"
-		 classpathref="ant.tasks.classpath"/>
-
-
-	<target name="resolve" description="--> retrieve dependencies with ivy">
-		<ivy:retrieve/>
-	</target>
-
-	<target name="get-qunit" description="--> get qunit files">
-		<get src="http://code.jquery.com/qunit/qunit-git.css" dest="${lib.dir}/qunit-git.css"/>
-		<get src="http://code.jquery.com/qunit/qunit-git.js" dest="${lib.dir}/qunit-git.js"/>
-	</target>
-
-	<target name="get-jquery" description="--> get jquery from googleapis">
-		<get src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" dest="${lib.dir}/jquery-1.7.1-min.js"/>
-	</target>
-
-	<target name="dependencies" depends="resolve,get-qunit,get-jquery" description="--> get all dependences"/>
-
-
 	<target name="clean" description="cleanup">
 		<delete dir="${log.dir}"/>
-		<delete dir="${build.dir}"/>
+		<!-- <delete dir="${build.dir}"/> -->
 	</target>
 
 
-	<target name="init">
+	<target name="init" depends="lib.init">
 		<mkdir dir="${log.dir}"/>
-		<mkdir dir="${lib.dir}"/>
 	</target>
 
 
 	<target name="jslint" description="quality control with jslint">
-		<jsl:jslint options="undef,white,browser,plusplus">
+		<jsl:jslint options="undef,white,plusplus,nomen">
 			<formatter type="plain"/>
 			<formatter type="xml" destfile="${log.dir}/jslint.xml"/>
-			<fileset dir="${source.dir}" includes="**/*.js"/>
+			<fileset dir="${source.dir}" includes="*.js, routes/*.js, public/ui/*.js"/>
 		</jsl:jslint>
 	</target>
 
 
-	<target name="all" description="build" depends="init,dependencies,jslint"/>
+	<target name="all" description="build" depends="init,jslint"/>
 
 
 </project>

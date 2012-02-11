@@ -10,28 +10,59 @@
 
 
 	var http = require( 'http' ),
+		path = require( 'path' ),
 		spawn = require( 'child_process' ).spawn,
+		config,
+		app,
 		vlc
 	;
 
 
-	http.createServer(function( req, res ) {
+	// configure
+	config = {
+		port: 1337,
+		movies : 'f:/dvd/Movies/'
+	};
 
-		if ( req.method !== 'POST' ) {
-			// favicon! ;)
-			res.writeHead( 404, {
-				'Content-Type': 'text/plain'
-			});
-			res.end( 'Not found' );
-			return;
-		}
 
-		console.log( 'playing', 'file:///f:/dvd/Movies/Dodgeball/VIDEO_TS' );
+	// start server
+	app = require( 'express' ).createServer();
+
+
+	// get a list of all movies
+	app.get( '/movie/', function( req, res ) {
+		
+	});
+
+
+	app.post( '/movie/:title/play', function( req, res ) {
+
+		// allow for VIDEO_TS, fallback to .iso?
+		var media = path.join( config.movies, req.params.title, '/VIDEO_TS' );
+
+/*		path.exists( media, function( exists ) {
+			
+			if ( exists ) {
+				// play media
+				// return success
+
+			} else {
+				// no media
+				// return 404
+			}
+
+		});*/
+
+		console.log( 'playing', media );
+
 		// if VLC is running, kill it? queue up next request?
 		// what if it's already running what you want to watch?
 		if ( vlc && vlc.pid ) {
 			vlc.kill();
 		}
+
+		// movie path
+
 
 		// fire up VLC!
 		vlc = spawn( 'C:/Program Files (x86)/VideoLAN/VLC/vlc.exe', [
@@ -40,7 +71,7 @@
 			'--no-video-title-show',
 			'--high-priority', // high performance = priority VLC thread
 			'--play-and-exit', // quit when done
-			'file:///f:/dvd/Movies/Dodgeball/VIDEO_TS',
+			'file:///' + media
 		]);
 		// VLC OPTIONS
 		// full screen
@@ -54,10 +85,13 @@
 		});
 		res.end( 'Now playing demo movie…' );
 
-	}).listen( 1337, '127.0.0.1' );
+	});
 
 
-	console.log( 'Server running at http://127.0.0.1:1337/' );
+	// listen on port
+	app.listen( config.port );
+
+	console.log( 'Server running on localhost@', config.port );
 
 
 // keeping jslint happy (node globals)
