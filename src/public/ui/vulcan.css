@@ -1,8 +1,180 @@
 body {
 	padding: 50px;
-	font: 100% Verdana, Helvetica, Arial, sans-serif;
+	font: 200% Verdana, Helvetica, Arial, sans-serif;
+	background: #111;
+	color: #f7f7f7;
 }
 
 a {
 	color: #00B7FF;
 }
+
+
+/* now playing */
+strong.status {
+	color: green;
+	text-decoration: blink;
+}
+
+
+/* styling input widgets */
+form button,
+input[type=text],
+input[type=password],
+input[type=search],
+input[type=email],
+input[type=tel],
+input[type=url],
+input[type=date],
+input[type=time],
+input[type=datetime],
+input[type=number],
+select,
+textarea {
+	padding: .3em;
+	max-width: 90%;
+	background: #fff;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	box-shadow: rgba(198,218,222,.5) 0 1px 1.5px;
+}
+/* separate the :not() selector or the whole block is ignored in older browsers */
+input:not([type]) {
+	font: inherit;
+	padding: .3em;
+	max-width: 90%;
+	background: #fff;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	box-shadow: rgba(198,218,222,.5) 0 1px 1.5px;
+}
+
+
+/* buttons */
+button,
+input[type=button],
+input[type=submit],
+input[type=image],
+input[type=reset] {
+	cursor: pointer;
+}
+/* leave image buttons alone */
+input[type=image] {
+	padding: 0;
+	max-width: auto;
+	background: transparent;
+	border: none;
+	border-radius: 0;
+	box-shadow: none;
+}
+/* large boxes and lists */
+textarea {
+	width: 90%; /* allow for padding */
+	max-width: 50em;
+}
+select {
+	overflow: hidden; /* prevent wide select lists from destroying layout */
+}
+
+/* disabled items */
+.disabled {
+	color: #777;
+}
+button[disabled],
+input[disabled],
+select[disabled],
+textarea[disabled] {
+	background: transparent;
+	color: #777;
+}
+button[readonly],
+input[readonly],
+select[readonly],
+textarea[readonly] {
+	color: #777;
+}
+
+
+/* form footer */
+.questions li.footer {
+	padding-bottom: .5em;
+}
+.sections li.footer {
+	padding: .5em;
+}
+/* form actions */
+.actions, #asides .actions {
+	display: block;
+	list-style: none;
+	margin: 0;
+	padding: .5em 0 0;
+	overflow: hidden;
+}
+.actions li,
+.questions .actions li {
+	display: inline-block;
+	list-style: none;
+	margin: 0 1em .5em 0;
+	padding: 0;
+	border: none;
+	background:	transparent;
+}
+.actions input {
+	max-width: none;
+}
+/* actions buttons */
+form button,
+.actions input {
+	padding: 1em 1.5em;
+	border: 2px groove #6B7175;
+	border-radius: .5em;
+	font-weight: bold;
+	color: #fff;
+	background: #393E41;
+	box-shadow: none;
+}
+form button:hover,
+form button:focus,
+.actions input:hover,
+.actions input:focus {
+	background: #585E62;
+	background: linear-gradient(top, #585E62, #393E41);
+	background: -moz-linear-gradient(top, #585E62, #393E41);
+	background: -webkit-linear-gradient(top, #585E62, #393E41);
+	text-shadow: 0 0 1px #000;
+}
+form button:active,
+.actions input:active {
+	padding: 1em 1.4em 1em 1.6em;
+	/* reverse gradient */
+	background: #393E41;
+	background: linear-gradient(bottom, #585E62, #393E41);
+	background: -moz-linear-gradient(bottom, #585E62, #393E41);
+	background: -webkit-linear-gradient(bottom, #585E62, #393E41);
+}
+/* primary action */
+form strong button,
+.actions strong input {
+	color: #fff;
+	border-color: #98C652;
+	background: #689132;
+}
+form strong button:hover,
+form strong button:focus,
+.actions strong input:hover,
+.actions strong input:focus {
+	box-shadow: rgba(0,0,0,.1) 4px 4px 2px;
+	background: #89BC49;
+	background: linear-gradient(top, #89BC49, #689132);
+	background: -moz-linear-gradient(top, #89BC49, #689132);
+	background: -webkit-linear-gradient(top, #89BC49, #689132);
+}
+form strong button:active,
+.actions strong input:active {
+	/* reverse gradient */
+	background: #689132;
+	background: linear-gradient(bottom, #89BC49, #689132);
+	background: -moz-linear-gradient(bottom, #89BC49, #689132);
+	background: -webkit-linear-gradient(bottom, #89BC49, #689132);
+}
+/* clip right 
