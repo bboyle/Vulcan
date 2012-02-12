@@ -1,5 +1,5 @@
 body {
-	padding: 50px;
+	padding: 4% 48% 4% 4%;
 	font: 200% Verdana, Helvetica, Arial, sans-serif;
 	background: #111;
 	color: #f7f7f7;
@@ -7,6 +7,17 @@ body {
 
 a {
 	color: #00B7FF;
+}
+
+
+#poster {
+	width: 44%;
+	position: absolute;
+	top: 4%;
+	right: 4%;
+}
+figure > img {
+	width: 100%;
 }
 
 
@@ -31,6 +42,7 @@ input[type=datetime],
 input[type=number],
 select,
 textarea {
+	font-size: 100%;
 	padding: .3em;
 	max-width: 90%;
 	background: #fff;
