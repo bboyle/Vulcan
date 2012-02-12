@@ -25,7 +25,7 @@
 	})
 
 	// navigating inside nav elements
-	.on( 'keypress', 'a', function( event ){
+	.on( 'keydown', 'a', function( event ){
 		// console.log( event.keyCode, event.which );
 
 		var target = $( event.target ),
@@ -65,7 +65,7 @@
 
 
 	// browser navigation
-	$( window ).on( 'keypress', function( event ){
+	$( window ).on( 'keyup', function( event ){
 
 		switch ( event.keyCode ) {
 			

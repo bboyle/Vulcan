@@ -1,7 +1,7 @@
 (function( console, exports, require ) {
 	'use strict';
 
-	var moviesPath = '/Volumes/Scavenger/media/dvd', //'f:/dvd/Movies', 
+	var moviesPath = '/Volumes/Scavenger/media/dvd',
 		clivlc = '/Applications/VLC.app/Contents/MacOS/VLC';
 
 	// OSX or windows?
@@ -9,6 +9,14 @@
 		if ( ! exists ) {
 			// assume windows
 			clivlc = 'C:/Program Files (x86)/VideoLAN/VLC/vlc.exe';
+		}
+	});
+
+	// test environment
+	require( 'path' ).exists( moviesPath, function( exists ) {
+		if ( ! exists ) {
+			// assume windows
+			moviesPath = 'f:/dvd/Movies';
 		}
 	});
 
@@ -22,7 +30,6 @@
 	// list all movies in folder
 	exports.listMovies = function( req, res ) {
 		require( 'fs' ).readdir( moviesPath, function( err, files ) {
-			console.log( files );
 			files = files.filter(function( filename ) {
 				// ignore . files
 				return ! /^\./.test( filename );
