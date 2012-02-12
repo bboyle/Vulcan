@@ -1,7 +1,7 @@
 (function( console, exports, require ) {
 	'use strict';
 
-	var moviesPath = 'f:/dvd/Movies', //'/Volumes/Scavenger/media/dvd',
+	var moviesPath = '/Volumes/Scavenger/media/dvd', //'f:/dvd/Movies', 
 		clivlc = '/Applications/VLC.app/Contents/MacOS/VLC';
 
 	// OSX or windows?
@@ -21,8 +21,12 @@
 
 	// list all movies in folder
 	exports.listMovies = function( req, res ) {
-		// TODO ignore .DS_store
 		require( 'fs' ).readdir( moviesPath, function( err, files ) {
+			console.log( files );
+			files = files.filter(function( filename ) {
+				// ignore . files
+				return ! /^\./.test( filename );
+			});
 			res.render( 'movie/list', { title: 'Movies', files: files });
 		});
 	};
