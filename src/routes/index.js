@@ -1,12 +1,21 @@
 (function( console, exports, require ) {
 	'use strict';
 
-	var moviesPath = '/Volumes/Scavenger/media/dvd';
+	var moviesPath = 'f:/dvd/Movies', //'/Volumes/Scavenger/media/dvd',
+		clivlc = '/Applications/VLC.app/Contents/MacOS/VLC';
+
+	// OSX or windows?
+	require( 'path' ).exists( clivlc, function( exists ) {
+		if ( ! exists ) {
+			// assume windows
+			clivlc = 'C:/Program Files (x86)/VideoLAN/VLC/vlc.exe';
+		}
+	});
 
 
 	// use for home page
 	exports.index = function( req, res ) {
-		res.render( 'index', { title: 'Vulcan (VLC + Node)' });
+		res.render( 'index', { title: 'Vulcan media centre' });
 	};
 
 
@@ -55,7 +64,6 @@
 	exports.playMovie = function( req, res ) {
 		var movie = req.params.movie,
 			media = require( 'path' ).join( moviesPath, movie, 'VIDEO_TS' ),
-			vlc = '/Applications/VLC.app/Contents/MacOS/VLC',
 			vlcArgs = [
 				'--fullscreen', // taskbar still visible, W7 bug only?
 				'--sub-language=en,any',
@@ -66,24 +74,25 @@
 				'file:///' + media
 			];
 
-		console.log( vlc, vlcArgs.join( ' ' ));
+		console.log( clivlc, vlcArgs.join( ' ' ));
 
 		// fire up VLC!
 		// require( 'child_process' ).spawn( 'C:/Program Files (x86)/VideoLAN/VLC/vlc.exe', [
-		vlc = require( 'child_process' ).spawn( vlc, vlcArgs );
+		require( 'child_process' ).spawn( clivlc, vlcArgs );
 		// VLC OPTIONS
 		// full screen
 		// subtitles on (english)
 		// should these be specified in vulcan, or should the user configure VLC?
 
 		// log
-		// vlc.stdout.on( 'data', function ( data ) {
-		// 	console.log( 'stdout: ' + data );
-		// });
-		// vlc.stderr.on( 'data', function ( data ) {
-		// 	console.log( 'stderr: ' + data );
-		// });
-
+/*
+		vlc.stdout.on( 'data', function ( data ) {
+			console.log( 'stdout: ' + data );
+		});
+		vlc.stderr.on( 'data', function ( data ) {
+			console.log( 'stderr: ' + data );
+		});
+*/		
 
 		// show "now playing" page
 		res.render( 'movie/play', { title: 'Playing ' + movie });
