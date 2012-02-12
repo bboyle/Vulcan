@@ -31,9 +31,9 @@
 	// Routes
 	app.get( '/', routes.index );
 	app.get( '/movie/list', routes.listMovies );
-	app.get( '/movie/:movie/', routes.getMovie );
+	app.get( '/movie/:movie/', routes.playMovie );
 	app.get( '/movie/:movie/poster', routes.getMoviePoster );
-	app.post( '/movie/:movie/play', routes.playMovie );
+	// app.post( '/movie/:movie/play', routes.playMovie );
 
 
 	// start
