@@ -3,7 +3,7 @@
 
 
 	// load movie poster when showing a 
-	$( '#movies' ).on( 'focus hover', 'a', function( event ){
+	$( '#movies' ).on( 'focus', 'a', function( event ){
 		$( '#poster' ).attr( 'src', $( event.target ).attr( 'href' ) + 'poster' );
 	});
 

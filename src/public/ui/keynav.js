@@ -17,12 +17,15 @@
 	// jump to first item starting with that letter (or nearest match)
 
 
-	// put focus on first nav item in page onload
-	$( 'nav a' ).eq( 0 ).focus();
+	$( 'nav' )
 
+	// normalise hover = focus for nav
+	.on( 'mouseenter', 'a', function( event ) {
+		$( event.target ).focus();
+	})
 
 	// navigating inside nav elements
-	$( 'nav' ).on( 'keypress', 'a', function( event ){
+	.on( 'keypress', 'a', function( event ){
 		// console.log( event.keyCode, event.which );
 
 		var target = $( event.target ),
@@ -81,6 +84,10 @@
 
 		}
 	});
+
+
+	// put focus on first nav item in page onload
+	$( 'nav a' ).eq( 0 ).focus();
 
 
 }( jQuery, window ));

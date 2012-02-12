@@ -33,8 +33,7 @@ a {
 	text-decoration: none;
 	outline: none;
 }
-a:focus,
-a:hover {
+a:focus {
 	color: #fff;
 	border-color: #000;
 
