@@ -42,7 +42,7 @@
 		node node_modules/express/bin/express -t ejs
 		(answer Y when prompted)
 		node install
-	
+	-->
 	<target name="get-node">
 		<echo>Assuming node.js and npm are installed</echo>
 	</target>
@@ -65,7 +65,6 @@
 			<arg value="ejs"/>
 		</exec>
 	</target>
--->
 
 
 	<target name="lib.init" depends="resolve,get-qunit,get-jquery"/>
