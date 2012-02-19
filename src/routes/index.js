@@ -2,10 +2,12 @@
 	'use strict';
 
 	var moviesPath = '/Volumes/Scavenger/media/dvd',
-		clivlc = '/Applications/VLC.app/Contents/MacOS/VLC';
+		clivlc = '/Applications/VLC.app/Contents/MacOS/VLC',
+		path = require( 'path' ),
+		fs = require( 'fs' );
 
 	// OSX or windows?
-	require( 'path' ).exists( clivlc, function( exists ) {
+	path.exists( clivlc, function( exists ) {
 		if ( ! exists ) {
 			// assume windows
 			clivlc = 'C:/Program Files (x86)/VideoLAN/VLC/vlc.exe';
@@ -13,7 +15,7 @@
 	});
 
 	// test environment
-	require( 'path' ).exists( moviesPath, function( exists ) {
+	path.exists( moviesPath, function( exists ) {
 		if ( ! exists ) {
 			// assume windows
 			moviesPath = 'f:/dvd/Movies';
@@ -29,12 +31,33 @@
 
 	// list all movies in folder
 	exports.listMovies = function( req, res ) {
-		require( 'fs' ).readdir( moviesPath, function( err, files ) {
+		var movies = {},
+			i,
+			dataFile;
+
+		fs.readdir( moviesPath, function( err, files ) {
 			files = files.filter(function( filename ) {
 				// ignore . files
 				return ! /^\./.test( filename );
 			});
-			res.render( 'movie/list', { title: 'Movies', files: files });
+
+			for ( i = 0; i < files.length; i++ ) {
+				// add moviee to list
+				movies[ files[ i ]] = { title: files[ i ] };
+
+				// read metadata for movie
+				dataFile = path.join( moviesPath, files[ i ], 'metadata.json' );
+				if ( path.existsSync( dataFile )) {
+					movies[ files[ i ]] = JSON.parse( fs.readFileSync( dataFile )).movie;
+				}
+			}
+
+			console.log( movies );
+			res.render( 'movie/list', {
+				title: 'Movies',
+				files: files,
+				movies: movies
+			});
 		});
 	};
 
@@ -49,7 +72,7 @@
 	// get poster image for a movie
 	exports.getMoviePoster = function( req, res ) {
 		var movie = req.params.movie,
-			join = require( 'path' ).join;
+			join = path.join;
 
 		require( 'fs' ).readdir( join( moviesPath, movie ), function( err, files ) {
 			var i = 0;
@@ -74,7 +97,7 @@
 	// play a movie
 	exports.playMovie = function( req, res ) {
 		var movie = req.params.movie,
-			media = require( 'path' ).join( moviesPath, movie, 'VIDEO_TS' ),
+			media = path.join( moviesPath, movie, 'VIDEO_TS' ),
 			vlcArgs = [
 				'--fullscreen', // taskbar still visible, W7 bug only?
 				'--sub-language=en,any',

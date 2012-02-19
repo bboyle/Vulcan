@@ -3,7 +3,14 @@
 <nav id="movies">
 	<ul>
 	<% for ( var i = 0; i < files.length; i++ ) { %>
-		<li><a href="<%= files[ i ] %>/"><%= files[ i ] %></a></li>
+		<li>
+			<a href="<%= files[ i ] %>/">
+				<%= files[ i ] %>
+				<% if ( typeof movies[ files[ i ]].OFLC === 'object' ) { %>
+					<small><%= movies[ files[ i ]].OFLC.classification %></small>
+				<% } %>
+			</a>
+		</li>
 	<% } %>
 	</ul>
 </nav>

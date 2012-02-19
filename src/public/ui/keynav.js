@@ -26,7 +26,6 @@
 
 	// navigating inside nav elements
 	.on( 'keydown', 'a', function( event ){
-		// console.log( event.keyCode, event.which );
 
 		var target = $( event.target ),
 			focus;
