@@ -1,0 +1,31 @@
+<h1><%= movie.title %></h1>
+
+<form action="data" method="post">
+
+
+	<dl>
+		<dt>Title</dt>
+		<dd><%= movie.title %></dd>
+
+		<dt>Date</dt>
+		<dd><%= movie.dateCreated || 'N/A' %></dd>
+
+		<dt>OFLC classification</dt>
+		<dd><%= movie.OFLC.classification %></dd>
+
+		<dt>OFLC consumer advice</dt>
+		<dd><%= movie.OFLC.consumerAdvice || '' %></dd>
+
+		<dt>OFLC date issued</dt>
+		<dd><%= movie.OFLC.dateIssued || 'N/A' %></dd>
+
+	</dl>
+
+
+</form>
+
+<!-- poster image -->
+<figure id="poster">
+	<img src="poster" />
+</figure>
+

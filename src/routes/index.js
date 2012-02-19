@@ -52,7 +52,6 @@
 				}
 			}
 
-			console.log( movies );
 			res.render( 'movie/list', {
 				title: 'Movies',
 				files: files,
@@ -66,6 +65,27 @@
 	exports.getMovie = function( req, res ) {
 		var movie = req.params.movie;
 		res.render( 'movie/get', { title: movie });
+	};
+
+
+	// get details for a movie
+	exports.getMovieData = function( req, res ) {
+		var movie = req.params.movie,
+			data = { title : movie },
+			dataFile = path.join( moviesPath, movie, 'metadata.json' );
+
+		fs.readFile( dataFile, function( err, data ) {
+			if ( err ) {
+				data.dateCreated = '';
+				data.OLFC = { classification: '' };
+			} else {
+				data = JSON.parse( data ).movie;
+			}
+			res.render( 'movie/metadata', {
+				title: movie,
+				movie: data
+			});
+		});
 	};
 
 
