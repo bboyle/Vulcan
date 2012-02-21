@@ -74,18 +74,34 @@
 			data = { title : movie },
 			dataFile = path.join( moviesPath, movie, 'metadata.json' );
 
-		fs.readFile( dataFile, function( err, data ) {
+		fs.readFile( dataFile, function( err, jsonData ) {
 			if ( err ) {
 				data.dateCreated = '';
-				data.OLFC = { classification: '' };
 			} else {
-				data = JSON.parse( data ).movie;
+				// TODO should merge in with movie title read from file path
+				data = JSON.parse( jsonData ).movie;
 			}
 			res.render( 'movie/metadata', {
 				title: movie,
 				movie: data
 			});
 		});
+	};
+
+
+	// save details for a movie
+	exports.postMovieData = function( req, res ) {
+		var movie = String( req.params.movie ),
+			dataFile = path.join( moviesPath, movie, 'metadata.json' );
+
+		// write to metadata.json file
+		// console.log( req.body );
+		fs.writeFile( dataFile, JSON.stringify({ movie: req.body }, null, 4 ) );
+
+		// redirect to metadata page
+		// could use 'back' but relies on referrer
+		res.redirect( '/movie/' + movie + '/data' );
+		
 	};
 
 
@@ -116,7 +132,7 @@
 
 	// play a movie
 	exports.playMovie = function( req, res ) {
-		var movie = req.params.movie,
+		var movie = String( req.params.movie ),
 			media = path.join( moviesPath, movie, 'VIDEO_TS' ),
 			vlcArgs = [
 				'--fullscreen', // taskbar still visible, W7 bug only?

@@ -1,6 +1,8 @@
 Vulcan TODO
 ===========
 
+* Fixture with movie folder setup
+
 * Edit metadata screen (read existing data, edit and save)
   * `date` input
 * Function to load all metadata
