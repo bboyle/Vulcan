@@ -1,0 +1,77 @@
+<h1><%= movie.title %></h1>
+
+<form action="data" method="post">
+
+	<ol class="questions">
+
+		<li>
+			<label for="title">
+				<span class="label">Title</span>
+				<abbr title="(required)">*</abbr>
+			</label>
+			<input id="title" name="title" size="40" required="required" value="<%= movie.title %>" />
+		</li>
+
+		<li>
+			<label for="dateCreated">
+				<span class="label">Date</span>
+				<small class="hint">YYYY-MM-DD</small>
+			</label>
+			<input type="date" id="dateCreated" name="dateCreated" size="12" value="<%= movie.dateCreated || '' %>" />
+		</li>
+
+		<li class="section">
+			<fieldset id="oflc">
+				<legend><span class="h2"><abbr title="Office of Film and Literature Classification">OFLC</abbr> details</span></legend>
+				<ol class="questions">
+					<li>
+						<label for="classification">
+							<span class="label">Classification</span>
+						</label>
+						<select id="classification" name="oflc[classification]">
+							<% if ( movie.oflc && movie.oflc.classification ) { %>
+								<option><%= movie.oflc.classification %></option>
+							<% } %>
+							<option value="">—please select—</option>
+							<option value="G">G (General)</option>
+							<option value="PG">PG (Parental Guidance)</option>
+							<option value="M">M (Mature)</option>
+							<option value="MA">MA (Mature—Restricted 15+)</option>
+							<option value="R">R (Restricted 18+)</option>
+						</select>
+					</li>
+					<li>
+						<label for="consumerAdvice">
+							<span class="label">Consumer advice</span>
+						</label>
+						<textarea id="consumerAdvice" name="oflc[consumerAdvice]" rows="3" cols="40"><%= movie.oflc ? movie.oflc.consumerAdvice || '' : '' %></textarea>
+					</li>
+
+					<li>
+						<label for="dateIssued">
+							<span class="label">Date issued</span>
+							<small class="hint">YYYY-MM-DD</small>
+						</label>
+						<input type="date" id="dateIssued" name="oflc[dateIssued]" size="12" value="<%= movie.oflc ? movie.oflc.dateIssued || '' : '' %>" />
+					</li>
+				</ol>
+			</fieldset>
+
+		</li>
+
+		<li class="footer">
+			<ul class="actions">
+				<li><strong><input type="submit" value="Save" /></strong></li>
+			</ul>
+		</li>
+
+	</ol>
+
+
+</form>
+
+<!-- poster image -->
+<figure id="poster">
+	<img src="poster" />
+</figure>
+

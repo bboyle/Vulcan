@@ -33,6 +33,8 @@
 	app.get( '/movie/list', routes.listMovies );
 	app.get( '/movie/:movie/', routes.playMovie );
 	app.get( '/movie/:movie/poster', routes.getMoviePoster );
+	app.get( '/movie/:movie/data', routes.getMovieData );
+	app.post( '/movie/:movie/data', routes.postMovieData );
 	// app.post( '/movie/:movie/play', routes.playMovie );
 
 
