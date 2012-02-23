@@ -48,6 +48,16 @@ a:focus {
 	background: linear-gradient(top,  rgba(174,188,191,1) 0%,rgba(110,119,116,1) 50%,rgba(10,14,10,1) 51%,rgba(10,8,9,1) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#aebcbf', endColorstr='#0a0809',GradientType=0 );
 }
+li {
+	position: relative;
+}
+li > small {
+	position: absolute;
+	bottom: 0;
+}
+li > small > a {
+	display: inline;
+}
 
 
 #poster {
