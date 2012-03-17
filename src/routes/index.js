@@ -48,7 +48,11 @@
 				// read metadata for movie
 				dataFile = path.join( moviesPath, files[ i ], 'metadata.json' );
 				if ( path.existsSync( dataFile )) {
-					movies[ files[ i ]] = JSON.parse( fs.readFileSync( dataFile )).movie;
+					try {
+						movies[ files[ i ]] = JSON.parse( fs.readFileSync( dataFile )).movie;
+					} catch ( x ) {
+						console.error( dataFile, x );
+					}
 				}
 			}
 
