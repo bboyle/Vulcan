@@ -2,7 +2,8 @@
 	'use strict';
 
 
-	var express = require( 'express' ),
+	var port = 3000,
+		express = require( 'express' ),
 		routes = require( './routes' ),
 
 		app = module.exports = express.createServer()
@@ -42,8 +43,8 @@
 
 
 	// start
-	app.listen( 3000 );
-	console.log( 'Express server listening on port %d in %s mode', app.address().port, app.settings.env );
+	app.listen( port );
+	console.log( 'Express server listening on port %d in %s mode', port, app.settings.env );
 
 
 // node globals (keep jslint happy)

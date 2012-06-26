@@ -4,10 +4,25 @@
 	var moviesPath = '/Volumes/Scavenger/media/dvd',
 		clivlc = '/Applications/VLC.app/Contents/MacOS/VLC',
 		path = require( 'path' ),
-		fs = require( 'fs' );
+		fs = require( 'fs' ),
+		ejs = require( 'ejs' ),
+
+		// ejs 'layouts' (expressjs no longer supports layouts)
+		ejsLayout = function( res, view, data ) {
+			fs.readFile( 'views/' + view + '.ejs', 'UTF-8', function( err, view ) {
+				if ( err ) {
+					Error.call( this, err );
+				} else {
+					data.body = ejs.render( view, data );
+					res.render( 'layout',  data );
+				}
+			});
+		}
+	;
+
 
 	// OSX or windows?
-	path.exists( clivlc, function( exists ) {
+	fs.exists( clivlc, function( exists ) {
 		if ( ! exists ) {
 			// assume windows
 			clivlc = 'C:/Program Files (x86)/VideoLAN/VLC/vlc.exe';
@@ -15,7 +30,7 @@
 	});
 
 	// test environment
-	path.exists( moviesPath, function( exists ) {
+	fs.exists( moviesPath, function( exists ) {
 		if ( ! exists ) {
 			// assume windows
 			moviesPath = 'f:/dvd/Movies';
@@ -25,7 +40,9 @@
 
 	// use for home page
 	exports.index = function( req, res ) {
-		res.render( 'index', { title: 'Vulcan media centre' });
+		ejsLayout( res, 'index', {
+			title: 'Vulcan media centre'
+		});
 	};
 
 
@@ -47,7 +64,7 @@
 
 				// read metadata for movie
 				dataFile = path.join( moviesPath, files[ i ], 'metadata.json' );
-				if ( path.existsSync( dataFile )) {
+				if ( fs.existsSync( dataFile )) {
 					try {
 						movies[ files[ i ]] = JSON.parse( fs.readFileSync( dataFile )).movie;
 					} catch ( x ) {
@@ -56,7 +73,7 @@
 				}
 			}
 
-			res.render( 'movie/list', {
+			ejsLayout( res, 'movie/list', {
 				title: 'Movies',
 				files: files,
 				movies: movies
@@ -68,7 +85,7 @@
 	// get details for a movie
 	exports.getMovie = function( req, res ) {
 		var movie = req.params.movie;
-		res.render( 'movie/get', { title: movie });
+		ejsLayout( res, 'movie/get', { title: movie });
 	};
 
 
@@ -85,7 +102,7 @@
 				// TODO should merge in with movie title read from file path
 				data = JSON.parse( jsonData ).movie;
 			}
-			res.render( 'movie/metadata', {
+			ejsLayout( res, 'movie/metadata', {
 				title: movie,
 				movie: data
 			});
@@ -169,7 +186,7 @@
 */		
 
 		// show "now playing" page
-		res.render( 'movie/play', { title: 'Playing ' + movie });
+		ejsLayout( res, 'movie/play', { title: 'Playing ' + movie });
 
 	};
 

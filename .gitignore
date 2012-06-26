@@ -23,6 +23,7 @@ src/node_modules/*
 ######################
 logs/*
 fixture/*
+*.log
 
 # OS generated files #
 ######################
