@@ -18,21 +18,21 @@
 		 classpathref="ant.tasks.classpath"/>
 
 
-	<target name="resolve" description="--> retrieve dependencies with ivy">
+	<target name="resolve" description="retrieve dependencies with ivy">
 		<ivy:retrieve/>
 	</target>
 
-
-	<target name="get-qunit" description="--> get qunit files">
+<!--
+	<target name="get-qunit" description="get qunit files">
 		<get src="http://code.jquery.com/qunit/qunit-git.css" dest="${lib.dir}/qunit-git.css"/>
 		<get src="http://code.jquery.com/qunit/qunit-git.js" dest="${lib.dir}/qunit-git.js"/>
 	</target>
 
 
-	<target name="get-jquery" description="--> get jquery from googleapis">
-		<get src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" dest="${lib.dir}/jquery-1.7.1-min.js"/>
+	<target name="get-jquery" description="get jquery from googleapis">
+		<get src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" dest="${lib.dir}/jquery-1.7.2.min.js"/>
 	</target>
-
+-->
 
 <!-- TODO none of these node/npm calls are reliable on windows7
 		try this:
@@ -67,7 +67,8 @@
 	</target>
 
 
-	<target name="lib.init" depends="resolve,get-qunit,get-jquery"/>
+	<!-- <target name="lib.init" depends="resolve,get-qunit,get-jquery"/> -->
+	<target name="lib.init" depends="resolve"/>
 
 
 </project>
