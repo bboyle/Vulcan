@@ -1,6 +1,7 @@
 (function( console, exports, require ) {
 	'use strict';
 
+	// TODO config for movies path and VLC location?
 	var moviesPath = '/Volumes/Scavenger/media/dvd',
 		clivlc = '/Applications/VLC.app/Contents/MacOS/VLC',
 		path = require( 'path' ),
@@ -24,6 +25,7 @@
 	// OSX or windows?
 	fs.exists( clivlc, function( exists ) {
 		if ( ! exists ) {
+			// TODO different vlc locations: program files (without 'x86' first)
 			// assume windows
 			clivlc = 'C:/Program Files (x86)/VideoLAN/VLC/vlc.exe';
 		}
@@ -33,7 +35,9 @@
 	fs.exists( moviesPath, function( exists ) {
 		if ( ! exists ) {
 			// assume windows
-			moviesPath = 'f:/dvd/Movies';
+			// moviesPath = 'f:/dvd/Movies';
+			moviesPath = path.resolve( '../fixture/movies' );
+			console.log( moviesPath );
 		}
 	});
 
@@ -53,6 +57,7 @@
 			dataFile;
 
 		fs.readdir( moviesPath, function( err, files ) {
+			// TODO handle 'no files'
 			files = files.filter(function( filename ) {
 				// ignore . files
 				return ! /^\./.test( filename );
@@ -128,10 +133,9 @@
 
 	// get poster image for a movie
 	exports.getMoviePoster = function( req, res ) {
-		var movie = req.params.movie,
-			join = path.join;
+		var movie = req.params.movie;
 
-		require( 'fs' ).readdir( join( moviesPath, movie ), function( err, files ) {
+		fs.readdir( path.join( moviesPath, movie ), function( err, files ) {
 			var i = 0;
 
 			// look for first image
@@ -140,7 +144,7 @@
 			}
 
 			if ( i < files.length ) {
-				res.sendfile( join( moviesPath, movie, files[ i ] ));
+				res.sendfile( path.join( moviesPath, movie, files[ i ] ));
 
 			} else {
 				// no content!

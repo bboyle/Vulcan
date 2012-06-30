@@ -22,7 +22,6 @@ src/node_modules/*
 # Logs and databases #
 ######################
 logs/*
-fixture/*
 *.log
 
 # OS generated files #
