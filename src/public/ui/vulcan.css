@@ -61,13 +61,15 @@ li > small > a {
 
 
 #poster {
-	width: 44%;
+	max-width: 44%;
 	position: fixed;
 	top: 4%;
 	right: 2%;
 }
 figure > img {
-	width: 100%;
+	width: auto;
+	height: auto;
+	max-height: 80%;
 }
 
 
@@ -239,4 +241,3 @@ form strong button:active,
 	background: -moz-linear-gradient(bottom, #89BC49, #689132);
 	background: -webkit-linear-gradient(bottom, #89BC49, #689132);
 }
-/* clip right 
