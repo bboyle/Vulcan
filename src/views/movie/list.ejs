@@ -4,10 +4,9 @@
 	<ul>
 	<% for ( var i = 0; i < files.length; i++ ) { %>
 		<li>
-			<a href="<%= files[ i ] %>/">
-				<%= files[ i ] %>
-				<% if ( typeof movies[ files[ i ]].OFLC === 'object' ) { %>
-					<small><%= movies[ files[ i ]].OFLC.classification %></small>
+			<a href="<%= files[ i ] %>/"><%= files[ i ] %>
+				<% if ( typeof movies[ files[ i ]].oflc === 'object' ) { %>
+					<small><%= movies[ files[ i ]].oflc.classification %></small>
 				<% } %>
 			</a>
 			<small>(<a href="<%= files[ i ] %>/data">info</a>)</small>
@@ -22,4 +21,5 @@
 </figure>
 
 
+<script src="/ui/movieList.js"></script>
 <script src="/ui/loadPoster.js"></script>
