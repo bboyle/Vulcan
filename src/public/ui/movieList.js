@@ -5,22 +5,21 @@
 
 	// alphabetic nav
 	$( window ).on( 'keyup', function( event ){
-		var letter = String.fromCharCode( event.keyCode );
-
-		console.log( event.keyCode );
-		console.log( letter );
+		var letter = String.fromCharCode( event.keyCode ),
+			li, i;
 
 		if ( /[A-Z]/.test( letter )) {
-			var li = $( 'li', 'nav' ),
-				i = 0
-			;
+			li = $( 'li', 'nav' );
+			i = 0;
 
-			while ( i < li.length && letter > li.eq( i ).text().replace( /^\s*(.)[\s\S]*$/, '$1' ).toUpperCase() ) {
+			while ( i < li.length && letter > li.eq( i ).text().replace( /^\s*(\S)[\s\S]*$/, '$1' ).toUpperCase() ) {
 				i++;
 			}
 
 			if ( i < li.length ) {
 				$( window ).scrollTo( li.eq( i ));
+				// keyboard focus on first link or button
+				$( 'a, button', li.eq( i )).eq( 0 ).focus();
 			}
 		}
 
