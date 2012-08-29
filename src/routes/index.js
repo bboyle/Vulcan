@@ -35,7 +35,6 @@
 	fs.exists( moviesPath, function( exists ) {
 		if ( ! exists ) {
 			// assume windows
-			// moviesPath = 'f:/dvd/Movies';
 			moviesPath = path.resolve( '../fixture/movies' );
 			console.log( moviesPath );
 		}
@@ -189,8 +188,9 @@
 		});
 */		
 
-		// show "now playing" page
-		ejsLayout( res, 'movie/play', { title: 'Playing ' + movie });
+		// return 204: No Content
+		// http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5
+		res.status( 204 );
 
 	};
 
