@@ -5,11 +5,10 @@
 	<% for ( var i = 0; i < files.length; i++ ) { %>
 		<li>
 			<a href="<%= files[ i ] %>/"><%= files[ i ] %>
-				<% if ( typeof movies[ files[ i ]].oflc === 'object' ) { %>
-					<img src="/img/oflc/<%= movies[ files[ i ]].oflc.classification %>.png" alt="<%= movies[ files[ i ]].oflc.classification %>" />
+				<% if ( typeof movies[ files[ i ]].oflc === 'object' && movies[ files[ i ]].oflc.classification.length > 0 ) { %>
+					<img class="oflc" src="/img/oflc/<%= movies[ files[ i ]].oflc.classification %>.png" alt="<%= movies[ files[ i ]].oflc.classification %>" />
 				<% } %>
 			</a>
-			<small>(<a href="<%= files[ i ] %>/data">info</a>)</small>
 		</li>
 	<% } %>
 	</ul>

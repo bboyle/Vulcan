@@ -1,8 +1,39 @@
-<h1><%= title %></h1>
+<header>
+	<h1><%= movie.title %></h1>
+</header>
 
-<form action="play" method="post">
-	<strong><button>Play</button></strong>
-</form>
+<dl>
+	<dt>Classification</dt>
+	<dd>
+<% if ( movie.oflc && movie.oflc.classification ) { %>
+		<img src="/img/oflc/<%= movie.oflc.classification %>.png" alt="<%= movie.oflc.classification %>" />
+		<%= movie.oflc.consumerAdvice %>
+<% } else { %>
+		Unknown
+<% } %>
+	</dd>
+</dl>
+
+<nav>
+	<ul class="actions">
+		<li>
+			<form action="play" method="post">
+				<strong><button>Play</button></strong>
+			</form>
+		</li>
+
+		<li>
+			<a href="data">Edit metadata</a>
+		</li>
+
+		<li>
+			<a href="../list">List all movies</a>
+		</li>
+	</ul>
+
+</nav>
+
+
 
 <!-- poster image -->
 <figure id="poster">

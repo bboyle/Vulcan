@@ -88,8 +88,22 @@
 
 	// get details for a movie
 	exports.getMovie = function( req, res ) {
-		var movie = req.params.movie;
-		ejsLayout( res, 'movie/get', { title: movie });
+		var movie = req.params.movie,
+			data = { title : movie },
+			dataFile = path.join( moviesPath, movie, 'metadata.json' );
+
+		fs.readFile( dataFile, function( err, jsonData ) {
+			if ( err ) {
+				data.dateCreated = '';
+			} else {
+				// TODO should merge in with movie title read from file path
+				data = JSON.parse( jsonData ).movie;
+			}
+			ejsLayout( res, 'movie/get', {
+				title: movie,
+				movie: data
+			});
+		});
 	};
 
 

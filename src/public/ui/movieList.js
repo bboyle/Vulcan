@@ -27,7 +27,7 @@
 
 
 	// put focus on first nav item in page onload
-	$( 'nav a' ).eq( 0 ).focus();
+	$( 'a, button' ).eq( 0 ).focus();
 
 
 }( jQuery, window ));
