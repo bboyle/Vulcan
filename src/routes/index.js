@@ -202,9 +202,12 @@
 		});
 */		
 
-		// return 204: No Content
-		// http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5
-		res.status( 204 );
+		// redirect to movie page
+		// http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.4
+		res.writeHead( 303, {
+  			'Location': '/movie/' + req.params.movie + '/'
+		});
+		res.end();
 
 	};
 
