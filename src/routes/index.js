@@ -171,44 +171,65 @@
 	// play a movie
 	exports.playMovie = function( req, res ) {
 		var movie = String( req.params.movie ),
-			media = path.join( moviesPath, movie, 'VIDEO_TS' ),
 			vlcArgs = [
 				'--fullscreen', // taskbar still visible, W7 bug only?
-				'--sub-language=en,any',
 				'--no-video-title-show',
+				'--sub-language=en,any',
 				//'--high-priority', // high performance = priority VLC thread
 				// '--rt-offset=2',
-				'--play-and-exit', // quit when done
-				'file:///' + media
-			];
+				'--play-and-exit' // quit when done
+			],
 
-		console.log( clivlc, vlcArgs.join( ' ' ));
+			playMovie = function() {
+				console.log( clivlc, vlcArgs.join( ' ' ));
+				require( 'child_process' ).spawn( clivlc, vlcArgs );
+			}
+		;
 
-		// fire up VLC!
-		// require( 'child_process' ).spawn( 'C:/Program Files (x86)/VideoLAN/VLC/vlc.exe', [
-		require( 'child_process' ).spawn( clivlc, vlcArgs );
-		// VLC OPTIONS
-		// full screen
-		// subtitles on (english)
-		// should these be specified in vulcan, or should the user configure VLC?
+		// read metadata
+		fs.readFile( path.join( moviesPath, movie, 'metadata.json' ), function( err, jsonData ) {
+			var data, MRL;
 
-		// log
-/*
-		vlc.stdout.on( 'data', function ( data ) {
-			console.log( 'stdout: ' + data );
+			// check we have data
+			if ( err ) {
+				console.log( 'no data' );
+				data = {};
+			} else {
+				data = JSON.parse( jsonData ).movie;
+			}
+
+			// audio stream
+			if ( data.playback && data.playback.audio ) {
+				vlcArgs.push( '--audio-track=' + data.playback.audio );
+			}
+
+			// subtitles
+			if ( data.playback && data.playback.subtitle ) {
+				vlcArgs.push( '--sub-track=' + data.playback.subtitle );
+			}
+
+			// media URL
+			if ( data.playback && data.playback.file ) {
+				// dvd file name, title and (TODO chapter)
+				MRL = data.playback.file;
+				if ( data.playback.title ) {
+					MRL += '#' + data.playback.title;
+				}
+			} else {
+				MRL = 'VIDEO_TS';
+			}
+			vlcArgs.push( 'file:///' + path.join( moviesPath, movie, MRL ));
+
+			playMovie();
 		});
-		vlc.stderr.on( 'data', function ( data ) {
-			console.log( 'stderr: ' + data );
-		});
-*/		
 
 		// redirect to movie page
 		// http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.3.4
 		res.writeHead( 303, {
-  			'Location': '/movie/' + req.params.movie + '/'
+			'Location': '/movie/' + req.params.movie + '/'
 		});
-		res.end();
 
+		res.end();
 	};
 
 

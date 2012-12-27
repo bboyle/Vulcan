@@ -56,7 +56,44 @@
 					</li>
 				</ol>
 			</fieldset>
+		</li>
 
+		<li>
+			<fieldset>
+				<legend><span class="h2">Playback</span></legend>
+				<ol class="questions">
+					<li>
+						<label for="playbackFile">
+							<span class="label">File</span>
+						</label>
+						<input type="text" id="playbackFile" name="playback[file]" size="20" min="0" value="<%= movie.playback ? movie.playback.file || '' : '' %>" />
+					</li>
+					<li>
+						<label for="playbackTitle">
+							<span class="label">Title</span>
+						</label>
+						<input type="number" id="playbackTitle" name="playback[title]" size="3" min="0" value="<%= movie.playback ? movie.playback.title || '' : '' %>" />
+					</li>
+					<li>
+						<label for="playbackChapter">
+							<span class="label">Chapter</span>
+						</label>
+						<input type="number" id="playbackChapter" name="playback[chapter]" size="3" min="0" value="<%= movie.playback ? movie.playback.chapter || '' : '' %>" />
+					</li>
+					<li>
+						<label for="playbackAudio">
+							<span class="label">Audio</span>
+						</label>
+						<input type="number" id="playbackAudio" name="playback[audio]" size="3" min="0" value="<%= movie.playback ? movie.playback.audio || '' : '' %>" />
+					</li>
+					<li>
+						<label for="playbackSubtitle">
+							<span class="label">Subtitle</span>
+						</label>
+						<input type="number" id="playbackSubtitle" name="playback[subtitle]" size="3" min="0" value="<%= movie.playback ? movie.playback.subtitle || '' : '' %>" />
+					</li>
+				</ol>
+			</fieldset>
 		</li>
 
 		<li class="footer">
