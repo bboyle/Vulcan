@@ -30,3 +30,7 @@ logs/*
 ehthumbs.db
 Icon?
 Thumbs.db
+
+# Local configuration #
+#######################
+preferences.json

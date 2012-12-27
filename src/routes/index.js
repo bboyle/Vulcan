@@ -1,9 +1,8 @@
 (function( console, exports, require ) {
 	'use strict';
 
-	// TODO config for movies path and VLC location?
-	var moviesPath = '/Volumes/Scavenger/media/dvd',
-		clivlc = '/Applications/VLC.app/Contents/MacOS/VLC',
+	var moviesPath,
+		clivlc,
 		path = require( 'path' ),
 		fs = require( 'fs' ),
 		ejs = require( 'ejs' ),
@@ -22,21 +21,30 @@
 	;
 
 
-	// OSX or windows?
-	fs.exists( clivlc, function( exists ) {
-		if ( ! exists ) {
-			// TODO different vlc locations: program files (without 'x86' first)
-			// assume windows
-			clivlc = 'C:/Program Files (x86)/VideoLAN/VLC/vlc.exe';
+	// load prefs
+	fs.readFile( 'preferences.json', function( err, jsonData ) {
+		if ( err ) {
+			console.log( err + '\nUsing default preferences.' );
+			jsonData = {
+				vlc : {
+					cmd : '/Applications/VLC.app/Contents/MacOS/VLC'
+				},
+				media : {
+					folders : [ '../fixture/movies' ]
+				}
+			};
+		} else {
+			jsonData = JSON.parse( jsonData ).preferences;
 		}
-	});
 
-	// test environment
-	fs.exists( moviesPath, function( exists ) {
-		if ( ! exists ) {
-			// assume windows
-			moviesPath = path.resolve( '../fixture/movies' );
-			console.log( moviesPath );
+		if ( jsonData.vlc && jsonData.vlc.cmd ) {
+			clivlc = path.resolve( jsonData.vlc.cmd );
+			console.log( 'vlc: ' + clivlc );
+		}
+
+		if ( jsonData.media && jsonData.media.folders ) {
+			moviesPath = path.resolve( jsonData.media.folders[ 0 ]);
+			console.log( 'movies: ' + moviesPath );
 		}
 	});
 
