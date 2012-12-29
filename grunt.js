@@ -7,10 +7,11 @@ module.exports = function(grunt) {
       files: ['test/**/*.js']
     },
     lint: {
-      files: ['grunt.js', 'lib/**/*.js', 'test/**/*.js', 'src/app.js', 'src/routes/*.js', 'src/public/ui/*.js']
+      files: ['grunt.js', 'lib/**/*.js', 'test/**/*.js'],
+      src: ['src/app.js', 'src/routes/*.js', 'src/public/ui/*.js']
     },
     watch: {
-      files: '<config:lint.files>',
+      files: '<config:lint.src>',
       tasks: 'default'
     },
     jshint: {
@@ -34,6 +35,6 @@ module.exports = function(grunt) {
   });
 
   // Default task.
-  grunt.registerTask('default', 'lint test');
+  grunt.registerTask('default', 'lint:src');
 
 };
