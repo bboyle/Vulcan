@@ -1,3 +1,4 @@
+/*jslint browser:true, jquery:true*/
 // custom UI for movie list view
 (function( $, window ) {
 	'use strict';
