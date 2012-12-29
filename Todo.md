@@ -5,7 +5,7 @@ Vulcan TODO
   * include bad `metadata.json` file in fixture
 
 * ~~Edit metadata screen (read existing data, edit and save)~~
-  * `date` input
+  * ~~`date` input~~ (use a browser that supports html5 `date` input)
 
 * Function to load all metadata
   * load all at launch
