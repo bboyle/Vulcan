@@ -17,6 +17,7 @@
 # Libraries #
 #############
 lib/*
+node_modules/*
 src/node_modules/*
 
 # Logs and databases #
