@@ -1,5 +1,6 @@
 {
-    "name": "application-name"
+  "name": "Vulcan",
+  "description": "VLC+Node. A media library interface (web server) that uses VLC to run media."
   , "version": "0.0.1"
   , "private": true
   , "dependencies": {
