@@ -17,11 +17,13 @@
 # Libraries #
 #############
 lib/*
+node_modules/*
 src/node_modules/*
 
 # Logs and databases #
 ######################
 logs/*
+*.log
 
 # OS generated files #
 ######################
@@ -29,3 +31,7 @@ logs/*
 ehthumbs.db
 Icon?
 Thumbs.db
+
+# Local configuration #
+#######################
+preferences.json

@@ -1,3 +1,4 @@
+/*jslint browser:true, jquery:true*/
 (function( $, window ) {
 	'use strict';
 
@@ -19,48 +20,47 @@
 
 	$( 'nav' )
 
-	// normalise hover = focus for nav
-	.on( 'mouseenter', 'a', function( event ) {
-		$( event.target ).focus();
-	})
+		// normalise hover = focus for nav
+		.on( 'mouseenter', 'a, button, :button, :submit', function( event ) {
+			$( event.target ).focus();
+		})
 
-	// navigating inside nav elements
-	.on( 'keydown', 'a', function( event ){
-		// console.log( event.keyCode, event.which );
+		// navigating inside nav elements
+		.on( 'keydown', 'a, button, :button, :submit', function( event ){
 
-		var target = $( event.target ),
-			focus;
+			var target = $( event.target ),
+				focus;
 
-		switch ( event.keyCode ) {
-			
-			// down = next item in menu
-			case KDOWN:
-				focus = target.parent().next( 'li' );
+			switch ( event.keyCode ) {
+				
+				// down = next item in menu
+				case KDOWN:
+					focus = target.parent().next( 'li' );
 
-				if ( focus.length === 0 ) {
-					// back to first item
-					focus = target.closest( 'nav' ).find( 'li' ).eq( 0 );
-				}
+					if ( focus.length === 0 ) {
+						// back to first item
+						focus = target.closest( 'nav' ).find( 'li' ).eq( 0 );
+					}
 
-				focus.find( 'a' ).eq( 0 ).focus();
+					focus.find( 'a, button, :button, :submit' ).eq( 0 ).focus();
 
-				event.preventDefault();
-			break;
+					event.preventDefault();
+				break;
 
 
-			// up = prev item in menu
-			case KUP:
-				focus = target.parent().prev( 'li' );
+				// up = prev item in menu
+				case KUP:
+					focus = target.parent().prev( 'li' );
 
-				if ( focus.length === 0 ) {
-					focus = target.closest( 'nav' ).find( 'li' ).eq( -1 );
-				}
+					if ( focus.length === 0 ) {
+						focus = target.closest( 'nav' ).find( 'li' ).eq( -1 );
+					}
 
-				focus.find( 'a' ).eq( 0 ).focus();
+					focus.find( 'a, button, :button, :submit' ).eq( 0 ).focus();
 
-				event.preventDefault();
-			break;
-		}
+					event.preventDefault();
+				break;
+			}
 	});
 
 
@@ -87,7 +87,7 @@
 
 
 	// put focus on first nav item in page onload
-	$( 'nav a' ).eq( 0 ).focus();
+	$( 'a, button, :button, :submit', 'nav' ).eq( 0 ).focus();
 
 
 }( jQuery, window ));

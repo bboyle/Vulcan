@@ -2,7 +2,8 @@
 	'use strict';
 
 
-	var express = require( 'express' ),
+	var port = 3000,
+		express = require( 'express' ),
 		routes = require( './routes' ),
 
 		app = module.exports = express.createServer()
@@ -20,7 +21,10 @@
 	});
 
 	app.configure( 'development', function() {
-		app.use( express.errorHandler({ dumpExceptions: true, showStack: true }) );
+		app.use( express.errorHandler({
+			dumpExceptions : true,
+			showStack : true
+		} ));
 	});
 
 	app.configure( 'production', function() {
@@ -31,14 +35,19 @@
 	// Routes
 	app.get( '/', routes.index );
 	app.get( '/movie/list', routes.listMovies );
-	app.get( '/movie/:movie/', routes.playMovie );
+	app.get( '/movie/:movie/', routes.getMovie );
 	app.get( '/movie/:movie/poster', routes.getMoviePoster );
-	// app.post( '/movie/:movie/play', routes.playMovie );
+	// movie actions
+	app.post( '/movie/:movie/play', routes.playMovie );
+
+	// movie data
+	app.get( '/movie/:movie/data', routes.getMovieData );
+	app.post( '/movie/:movie/data', routes.postMovieData );
 
 
 	// start
-	app.listen( 3000 );
-	console.log( 'Express server listening on port %d in %s mode', app.address().port, app.settings.env );
+	app.listen( port );
+	console.log( 'Express server listening on port %d in %s mode', port, app.settings.env );
 
 
 // node globals (keep jslint happy)
