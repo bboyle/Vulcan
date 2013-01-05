@@ -157,10 +157,15 @@
 		var movie = req.params.movie;
 
 		fs.readdir( path.join( moviesPath, movie ), function( err, files ) {
+			if ( err ) {
+				console.log( err );
+				return;
+			}
+
 			var i = 0;
 
 			// look for first image
-			while ( i < files.length && ! /\.jpg$/.test( files[ i ] )) {
+			while ( files && i < files.length && ! /\.jpg$/.test( files[ i ] )) {
 				i++;
 			}
 
