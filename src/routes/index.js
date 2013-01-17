@@ -66,8 +66,8 @@
 		fs.readdir( moviesPath, function( err, files ) {
 			// TODO handle 'no files'
 			files = files.filter(function( filename ) {
-				// ignore . files
-				return ! /^\./.test( filename );
+				// ignore . files, thumbs.db
+				return ! /^\.|thumbs\.db/i.test( filename );
 			});
 
 			for ( i = 0; i < files.length; i++ ) {
