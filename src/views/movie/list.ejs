@@ -4,7 +4,7 @@
 	<ul>
 	<% for ( var i = 0; i < files.length; i++ ) { %>
 		<li>
-			<a href="<%= files[ i ] %>/"><%= files[ i ] %>
+			<a href="<%= files[ i ] %>/"><%= ( movies[ files[ i ]] && movies[ files[ i ]].title ) ? movies[ files[ i ]].title : files[ i ] %>
 				<% if ( movies[ files[ i ]] && typeof movies[ files[ i ]].oflc === 'object' && movies[ files[ i ]].oflc.classification.length > 0 ) { %>
 					<img class="oflc" src="/img/oflc/<%= movies[ files[ i ]].oflc.classification %>.png" alt="<%= movies[ files[ i ]].oflc.classification %>" />
 				<% } %>
