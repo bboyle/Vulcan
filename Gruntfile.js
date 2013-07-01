@@ -29,8 +29,17 @@ module.exports = function( grunt ) {
 				},
 				src: [
 					'src/*.js',
-					'!src/public/ui/lib/*.js',
-					'src/**/*.json'
+					'src/routes/*.js',
+					'src/*.json'
+				]
+			},
+			ui: {
+				options: {
+					jshintrc: 'src/public/.jshintrc'
+				},
+				src: [
+					'src/public/**/*.js',
+					'!src/public/ui/lib/*.js'
 				]
 			},
 		},
@@ -39,9 +48,13 @@ module.exports = function( grunt ) {
 				files: '<%= jshint.gruntfile.src %>',
 				tasks: [ 'jshint:gruntfile' ]
 			},
-			srcJs: {
+			srcServer: {
 				files: '<%= jshint.src.src %>',
 				tasks: [ 'jshint:src' ]
+			},
+			srcClient: {
+				files: '<%= jshint.ui.src %>',
+				tasks: [ 'jshint:ui' ]
 			}
 		}
 	});
