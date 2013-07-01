@@ -1,7 +1,7 @@
 {
   "name": "Vulcan",
   "description": "VLC+Node. A media library interface (web server) that uses VLC to run media.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/bboyle/Vulcan",
   "author": {
     "name": "Ben Boyle",
@@ -28,6 +28,15 @@
   "scripts": {
     "test": "grunt test"
   },
-  "devDependencies": {},
-  "keywords": []
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-clean": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt-contrib-watch": "~0.4.4"
+  },
+  "keywords": [],
+  "dependencies": {
+    "express": "~3.3.1",
+    "ejs": "~0.8.4"
+  }
 }
