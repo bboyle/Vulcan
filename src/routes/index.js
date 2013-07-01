@@ -1,4 +1,4 @@
-(function( console, exports, require ) {
+(function() {
 	'use strict';
 
 	var moviesPath,
@@ -10,7 +10,7 @@
 
 		// ejs 'layouts' (expressjs no longer supports layouts)
 		ejsLayout = function( res, view, data ) {
-			fs.readFile( 'views/' + view + '.ejs', 'UTF-8', function( err, view ) {
+			fs.readFile( 'src/views/' + view + '.ejs', 'UTF-8', function( err, view ) {
 				if ( err ) {
 					Error.call( this, err );
 				} else {
@@ -23,7 +23,7 @@
 
 
 	// load prefs
-	fs.readFile( 'preferences.json', function( err, jsonData ) {
+	fs.readFile( 'src/preferences.json', function( err, jsonData ) {
 		if ( err ) {
 			console.log( err + '\nUsing default preferences.' );
 			jsonData = {
@@ -290,5 +290,4 @@
 	};
 
 
-// node globals (keep jslint happy)
-}( console, exports, require ));
+}());

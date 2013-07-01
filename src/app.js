@@ -1,4 +1,4 @@
-(function( console, require, module, __dirname ) {
+(function() {
 	'use strict';
 
 
@@ -6,7 +6,7 @@
 		express = require( 'express' ),
 		routes = require( './routes' ),
 
-		app = module.exports = express.createServer()
+		app = module.exports = express()
 	;
 
 	// Configuration
@@ -47,10 +47,10 @@
 
 	// TV shows
 	app.get( '/tv/list', routes.listTv );
-	app.get( '/tv/:tv/', routes.getTv );
-	app.get( '/tv/:tv/poster', routes.getTvPoster );
+	// app.get( '/tv/:tv/', routes.getTv );
+	// app.get( '/tv/:tv/poster', routes.getTvPoster );
 	// tv actions
-	app.post( '/tv/:tv/play', routes.playTv );
+	// app.post( '/tv/:tv/play', routes.playTv );
 	// tv data
 	// app.get( '/tv/:tv/data', routes.getTvData );
 	// app.post( '/tv/:tv/data', routes.postTvData );
@@ -60,5 +60,4 @@
 	console.log( 'Express server listening on port %d in %s mode', port, app.settings.env );
 
 
-// node globals (keep jslint happy)
-}( console, require, module, __dirname ));
+}());
