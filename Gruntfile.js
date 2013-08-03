@@ -56,16 +56,25 @@ module.exports = function( grunt ) {
 				files: '<%= jshint.ui.src %>',
 				tasks: [ 'jshint:ui' ]
 			}
-		}
+		},
+		cucumber: {
+			test: {
+				features: 'features'
+			},
+			options: {
+				profile: 'grunt'
+			}
+		},
 	});
 
 	// These plugins provide necessary tasks.
 	grunt.loadNpmTasks( 'grunt-contrib-clean' );
 	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
+	grunt.loadNpmTasks( 'grunt-rcukes' );
 
 	// Default task.
-	grunt.registerTask( 'test', [ 'jshint' ]);
+	grunt.registerTask( 'test', [ 'jshint', 'cucumber' ]);
 	grunt.registerTask( 'default', [ 'test' ]);
 
 };

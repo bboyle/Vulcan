@@ -1,0 +1,4 @@
+# cucumber config
+---
+default: --format pretty
+grunt: --strict --format progress --format html --out features/_lastrun.html
