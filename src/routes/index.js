@@ -1,7 +1,8 @@
-(function( console, exports, require ) {
+(function() {
 	'use strict';
 
 	var moviesPath,
+		tvPath,
 		clivlc,
 		path = require( 'path' ),
 		fs = require( 'fs' ),
@@ -9,7 +10,7 @@
 
 		// ejs 'layouts' (expressjs no longer supports layouts)
 		ejsLayout = function( res, view, data ) {
-			fs.readFile( 'views/' + view + '.ejs', 'UTF-8', function( err, view ) {
+			fs.readFile( 'src/views/' + view + '.ejs', 'UTF-8', function( err, view ) {
 				if ( err ) {
 					Error.call( this, err );
 				} else {
@@ -22,7 +23,7 @@
 
 
 	// load prefs
-	fs.readFile( 'preferences.json', function( err, jsonData ) {
+	fs.readFile( 'src/preferences.json', function( err, jsonData ) {
 		if ( err ) {
 			console.log( err + '\nUsing default preferences.' );
 			jsonData = {
@@ -30,7 +31,8 @@
 					cmd : '/Applications/VLC.app/Contents/MacOS/VLC'
 				},
 				media : {
-					folders : [ '../fixture/movies' ]
+					movieFolders : [ '../fixture/movies' ],
+					tvFolders : [ '../fixture/tv' ]
 				}
 			};
 		} else {
@@ -42,9 +44,14 @@
 			console.log( 'vlc: ' + clivlc );
 		}
 
-		if ( jsonData.media && jsonData.media.folders ) {
-			moviesPath = path.resolve( jsonData.media.folders[ 0 ]);
+		if ( jsonData.media && jsonData.media.movieFolders ) {
+			moviesPath = path.resolve( jsonData.media.movieFolders[ 0 ]);
 			console.log( 'movies: ' + moviesPath );
+		}
+
+		if ( jsonData.media && jsonData.media.tvFolders ) {
+			tvPath = path.resolve( jsonData.media.tvFolders[ 0 ]);
+			console.log( 'movies: ' + tvPath );
 		}
 	});
 
@@ -66,12 +73,12 @@
 		fs.readdir( moviesPath, function( err, files ) {
 			// TODO handle 'no files'
 			files = files.filter(function( filename ) {
-				// ignore . files
-				return ! /^\./.test( filename );
+				// ignore . files, thumbs.db
+				return ! /^\.|thumbs\.db/i.test( filename );
 			});
 
 			for ( i = 0; i < files.length; i++ ) {
-				// add moviee to list
+				// add movie to list
 				movies[ files[ i ]] = { title: files[ i ] };
 
 				// read metadata for movie
@@ -89,6 +96,43 @@
 				title: 'Movies',
 				files: files,
 				movies: movies
+			});
+		});
+	};
+
+
+	// list all TV shows in folder
+	exports.listTv = function( req, res ) {
+		var shows = {},
+			i,
+			dataFile;
+
+		fs.readdir( tvPath, function( err, files ) {
+			// TODO handle 'no files'
+			files = files.filter(function( filename ) {
+				// ignore . files, thumbs.db
+				return ! /^\.|thumbs\.db/i.test( filename );
+			});
+
+			for ( i = 0; i < files.length; i++ ) {
+				// add show to list
+				shows[ files[ i ]] = { title: files[ i ] };
+
+				// read metadata for show
+				dataFile = path.join( tvPath, files[ i ], 'metadata.json' );
+				if ( fs.existsSync( dataFile )) {
+					try {
+						shows[ files[ i ]] = JSON.parse( fs.readFileSync( dataFile )).show;
+					} catch ( x ) {
+						console.error( dataFile, x );
+					}
+				}
+			}
+
+			ejsLayout( res, 'tv/list', {
+				title: 'TV shows',
+				files: files,
+				shows: shows
 			});
 		});
 	};
@@ -246,5 +290,4 @@
 	};
 
 
-// node globals (keep jslint happy)
-}( console, exports, require ));
+}());
