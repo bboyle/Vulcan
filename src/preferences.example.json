@@ -1,0 +1,15 @@
+{
+    "preferences": {
+        "media": {
+            "movieFolders": [
+                "d://dvd/Movies"
+            ],
+            "tvFolders": [
+                "d://dvd/TV"
+            ]
+        },
+        "vlc": {
+            "cmd": "C:/Program Files (x86)/VideoLAN/VLC/vlc.exe"
+        }
+    }
+}
